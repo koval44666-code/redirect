@@ -20,9 +20,9 @@ async function go() {
   };
   var def = 'https://alicel.ink/alice';
   try {
-    var r = await fetch('https://ip-api.com/json/?fields=countryCode');
+    var r = await fetch('https://ipapi.co/json/');
     var d = await r.json();
-    window.location.replace(rules[d.countryCode] || def);
+    window.location.replace(rules[d.country_code] || def);
   } catch(e) {
     window.location.replace(def);
   }
